@@ -52,7 +52,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+uint8_t addr1 = 0x01;
+uint8_t addr2 = 0x02;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -96,6 +97,7 @@ int main(void)
   MX_GPIO_Init();
   MX_I2C1_Init();
   MX_USART2_UART_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
   udebug_init(&huart2);
@@ -103,18 +105,20 @@ int main(void)
 
 
 
-  URM13_begin(0x0A);
+  URM13_begin(addr1);
+  URM13_begin(addr2);
 
  // refreshBasicInfo(0x0A);
 
-  setMeasureMode(0x00,0x0A);
+  //setMeasureMode(0x00,0x01);
 
 
   /* I2C slave address of the module, default value is 0x12, module device address(1~127) */
   //udebug("mailing address: 0x");
 
    uint8_t cfg = 0;
-   uint8_t cmd = 0;
+   uint8_t cmd1 = 0;
+   uint8_t cmd2 = 0;
 
 
    cfg &= ~MEASURE_RANGE_BIT;//clear bit4,long-range ranging mode
@@ -127,7 +131,8 @@ int main(void)
    //cfg |= TEMP_CPT_SEL_BIT;//set bit0,select external temperature compensation
 
 
-   writeReg(0x09, &cfg, sizeof(cfg),0x0A);
+   writeReg(0x09, &cfg, sizeof(cfg),addr1);
+   writeReg(0x09, &cfg, sizeof(cfg),addr2);
    HAL_Delay(100);
   /* USER CODE END 2 */
 
@@ -135,18 +140,26 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  /* USER CODE END WHILE */
+    /* USER CODE END WHILE */
 
-	  /* USER CODE BEGIN 3 */
+    /* USER CODE BEGIN 3 */
 
-	  cmd |=0x01;
+	  cmd1 |=0x01;
 
-	  if (writeReg(0x0A, &cmd, sizeof(cmd),0x0A) != 0)
+	  if (writeReg(0x0A, &cmd1, sizeof(cmd1),addr1) != 0)
 	  {
-	  HAL_Delay(1);
-	  udebug_formatted("Distance = %d  \r\n ",getDistanceCm(0x0A));
+		  udebug_formatted_twice("Distance[%d] = %d  \r\n ",addr1,getDistanceCm(addr1));
 	  }
-	  else { cmd =0;}
+
+	  HAL_Delay(100);
+
+	  cmd2 |=0x01;
+	  if (writeReg(0x0A, &cmd2, sizeof(cmd2),addr2) != 0)
+	  {
+		  udebug_formatted_twice("Distance[%d] = %d  \r\n ",addr2,getDistanceCm(addr2));
+	  }
+
+	  HAL_Delay(100);
   }
   /* USER CODE END 3 */
 }
