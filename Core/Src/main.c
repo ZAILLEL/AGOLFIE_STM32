@@ -149,7 +149,7 @@ int main(void)
 			  udebug_formatted_twice("Distance[%d] = %d  \r\n ",addr[i],getDistanceCm(addr[i]));
 		  }
 
-		  HAL_Delay(500);
+		  HAL_Delay(1000);
 	  }
   }
   /* USER CODE END 3 */
