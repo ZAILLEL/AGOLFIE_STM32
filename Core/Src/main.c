@@ -52,8 +52,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t addr1 = 0x01;
-uint8_t addr2 = 0x02;
+uint8_t addr[8] = {0x01, 0x02, 0x03, 0X04, 0x05, 0x09, 0x07, 0x08};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -104,9 +103,9 @@ int main(void)
   udebug(FG_RED("\r\n\r\n\r\n\r\n-- START\r\n"));
 
 
-
-  URM13_begin(addr1);
-  URM13_begin(addr2);
+  for (int i = 0; i<8; i++){
+  URM13_begin(addr[i]);
+  }
 
  // refreshBasicInfo(0x0A);
 
@@ -117,8 +116,7 @@ int main(void)
   //udebug("mailing address: 0x");
 
    uint8_t cfg = 0;
-   uint8_t cmd1 = 0;
-   uint8_t cmd2 = 0;
+   uint8_t cmd[8] = {0};
 
 
    cfg &= ~MEASURE_RANGE_BIT;//clear bit4,long-range ranging mode
@@ -130,9 +128,9 @@ int main(void)
    cfg &= ~TEMP_CPT_SEL_BIT;//clear bit0,select internal temperature compensation
    //cfg |= TEMP_CPT_SEL_BIT;//set bit0,select external temperature compensation
 
-
-   writeReg(0x09, &cfg, sizeof(cfg),addr1);
-   writeReg(0x09, &cfg, sizeof(cfg),addr2);
+   for (int i =0 ; i<8 ; i++){
+	  writeReg(0x09, &cfg, sizeof(cfg),addr[i]);
+   }
    HAL_Delay(100);
   /* USER CODE END 2 */
 
@@ -143,23 +141,16 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  for (int i = 0; i<8; i++){
+		  cmd[i] |=0x01;
 
-	  cmd1 |=0x01;
+		  if (writeReg(0x0A, &cmd[i], sizeof(cmd[i]),addr[i]) != 0)
+		  {
+			  udebug_formatted_twice("Distance[%d] = %d  \r\n ",addr[i],getDistanceCm(addr[i]));
+		  }
 
-	  if (writeReg(0x0A, &cmd1, sizeof(cmd1),addr1) != 0)
-	  {
-		  udebug_formatted_twice("Distance[%d] = %d  \r\n ",addr1,getDistanceCm(addr1));
+		  HAL_Delay(500);
 	  }
-
-	  HAL_Delay(100);
-
-	  cmd2 |=0x01;
-	  if (writeReg(0x0A, &cmd2, sizeof(cmd2),addr2) != 0)
-	  {
-		  udebug_formatted_twice("Distance[%d] = %d  \r\n ",addr2,getDistanceCm(addr2));
-	  }
-
-	  HAL_Delay(100);
   }
   /* USER CODE END 3 */
 }
