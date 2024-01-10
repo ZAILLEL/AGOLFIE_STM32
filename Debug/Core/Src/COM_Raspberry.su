@@ -1,0 +1,3 @@
+../Core/Src/COM_Raspberry.c:18:6:mainUART	32	static
+../Core/Src/COM_Raspberry.c:31:6:buffering5ms	16	static
+../Core/Src/COM_Raspberry.c:58:6:sendingData	8	static

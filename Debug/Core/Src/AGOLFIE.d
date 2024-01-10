@@ -1,5 +1,6 @@
-Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
- ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
+Core/Src/AGOLFIE.o: ../Core/Src/AGOLFIE.c ../Core/Inc/AGOLFIE.h \
+ ../Core/Inc/../debug_toolbox/Inc/uart_tools.h ../Core/Inc/usart.h \
+ ../Core/Inc/main.h ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  ../Core/Inc/stm32f4xx_hal_conf.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h \
@@ -27,10 +28,10 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
  ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
- ../Core/Inc/i2c.h ../Core/Inc/main.h ../Core/Inc/usart.h \
- ../Core/Inc/gpio.h ../Core/Inc/AGOLFIE.h \
- ../Core/Inc/../debug_toolbox/Inc/uart_tools.h \
  ../Core/Inc/DFRobot_URM13.h
+../Core/Inc/AGOLFIE.h:
+../Core/Inc/../debug_toolbox/Inc/uart_tools.h:
+../Core/Inc/usart.h:
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -60,10 +61,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
-../Core/Inc/i2c.h:
-../Core/Inc/main.h:
-../Core/Inc/usart.h:
-../Core/Inc/gpio.h:
-../Core/Inc/AGOLFIE.h:
-../Core/Inc/../debug_toolbox/Inc/uart_tools.h:
 ../Core/Inc/DFRobot_URM13.h:

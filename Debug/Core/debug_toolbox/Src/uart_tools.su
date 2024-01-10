@@ -9,8 +9,9 @@
 ../Core/debug_toolbox/Src/uart_tools.c:67:6:udebug_formatted_str	1048	static
 ../Core/debug_toolbox/Src/uart_tools.c:74:6:udebug_formatted_twice	1056	static
 ../Core/debug_toolbox/Src/uart_tools.c:80:6:udebug_formatted_four	1072	static
-../Core/debug_toolbox/Src/uart_tools.c:87:6:udebug_binary_variable	1200	static
-../Core/debug_toolbox/Src/uart_tools.c:93:6:udebug_formatted_twice_int16_binary	1224	static
-../Core/debug_toolbox/Src/uart_tools.c:99:10:udebug_get_RxBuffer	4	static
-../Core/debug_toolbox/Src/uart_tools.c:104:6:udebug_function_name	1048	static
-../Core/debug_toolbox/Src/uart_tools.c:113:28:HAL_UART_RxCpltCallback	16	static
+../Core/debug_toolbox/Src/uart_tools.c:86:6:udebug_formatted_six	1080	static
+../Core/debug_toolbox/Src/uart_tools.c:93:6:udebug_binary_variable	1200	static
+../Core/debug_toolbox/Src/uart_tools.c:99:6:udebug_formatted_twice_int16_binary	1224	static
+../Core/debug_toolbox/Src/uart_tools.c:105:10:udebug_get_RxBuffer	4	static
+../Core/debug_toolbox/Src/uart_tools.c:110:6:udebug_function_name	1048	static
+../Core/debug_toolbox/Src/uart_tools.c:119:28:HAL_UART_RxCpltCallback	16	static

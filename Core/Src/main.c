@@ -24,8 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "../debug_toolbox/Inc/uart_tools.h"
-#include "DFRobot_URM13.h"
+#include "AGOLFIE.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -35,11 +34,6 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
-#define    MEASURE_RANGE_BIT        ((uint8_t)0x01 << 4)
-#define    MEASURE_MODE_BIT         ((uint8_t)0x01 << 2)
-#define    TEMP_CPT_ENABLE_BIT		((uint8_t)0x01 << 1)
-#define    TEMP_CPT_SEL_BIT 		((uint8_t)0x01 << 0)
 
 
 /* USER CODE END PD */
@@ -52,7 +46,8 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t addr[8] = {0x01, 0x02, 0x03, 0X04, 0x05, 0x09, 0x07, 0x08};
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -103,34 +98,11 @@ int main(void)
   udebug(FG_RED("\r\n\r\n\r\n\r\n-- START\r\n"));
 
 
-  for (int i = 0; i<8; i++){
-  URM13_begin(addr[i]);
-  }
-
- // refreshBasicInfo(0x0A);
-
-  //setMeasureMode(0x00,0x01);
+  Agolfie_sensors_begin();
+  Agolfie_config_sensors();
 
 
-  /* I2C slave address of the module, default value is 0x12, module device address(1~127) */
-  //udebug("mailing address: 0x");
 
-   uint8_t cfg = 0;
-   uint8_t cmd[8] = {0};
-
-
-   cfg &= ~MEASURE_RANGE_BIT;//clear bit4,long-range ranging mode
-   //cfg |= MEASURE_RANGE_BIT;//set bit4,short-range ranging mode
-   //cfg |= MEASURE_MODE_BIT;//Set bit2，i2c passive mode
-   cfg &= ~MEASURE_MODE_BIT;//clear bit2 , set to Automatic ranging mode
-   cfg &= ~TEMP_CPT_ENABLE_BIT;//clear bit1,enable temperature compensation
-   //cfg |= TEMP_CPT_ENABLE_BIT;//set bit1,disable temperature compensation
-   cfg &= ~TEMP_CPT_SEL_BIT;//clear bit0,select internal temperature compensation
-   //cfg |= TEMP_CPT_SEL_BIT;//set bit0,select external temperature compensation
-
-   for (int i =0 ; i<8 ; i++){
-	  writeReg(0x09, &cfg, sizeof(cfg),addr[i]);
-   }
    HAL_Delay(100);
   /* USER CODE END 2 */
 
@@ -141,16 +113,7 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-	  for (int i = 0; i<8; i++){
-		  cmd[i] |=0x01;
 
-		  if (writeReg(0x0A, &cmd[i], sizeof(cmd[i]),addr[i]) != 0)
-		  {
-			  udebug_formatted_twice("Distance[%d] = %d  \r\n ",addr[i],getDistanceCm(addr[i]));
-		  }
-
-		  HAL_Delay(1000);
-	  }
   }
   /* USER CODE END 3 */
 }

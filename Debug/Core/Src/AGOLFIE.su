@@ -1,0 +1,8 @@
+../Core/Src/AGOLFIE.c:22:6:config_sensors_address	16	static
+../Core/Src/AGOLFIE.c:43:6:Agolfie_sensors_begin	16	static
+../Core/Src/AGOLFIE.c:53:6:Agolfie_config_sensors	16	static
+../Core/Src/AGOLFIE.c:73:6:Agolfie_update_sensors_value	56	static
+../Core/Src/AGOLFIE.c:105:6:obstacle1M	4	static
+../Core/Src/AGOLFIE.c:115:6:obstacle2M	4	static
+../Core/Src/AGOLFIE.c:126:6:obstacle3M	4	static
+../Core/Src/AGOLFIE.c:137:6:obstacle4M	4	static
