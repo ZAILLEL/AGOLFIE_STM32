@@ -64,6 +64,14 @@ void udebug_formatted(char* text,int integer_val)
 	int len=sprintf((char*)obuf,text,integer_val);
 	HAL_UART_Transmit(udebug_uart_handler,obuf,len,1000);
 }
+
+void udebug_formatted_float(char* text,float integer_val)
+{
+	uint8_t	obuf[1024];
+	int len=sprintf((char*)obuf,text,integer_val);
+	HAL_UART_Transmit(udebug_uart_handler,obuf,len,1000);
+}
+
 void udebug_formatted_str(char* text,const char* text2)
 {
 	uint8_t	obuf[1024];
@@ -83,12 +91,20 @@ void udebug_formatted_four(char* text,int integer_val,int integer_wal,int intege
 	int len=sprintf((char*)obuf,text,integer_val,integer_wal,integer_xal,integer_yal);
 	HAL_UART_Transmit(udebug_uart_handler,obuf,len,1000);
 }
+void udebug_formatted_eight(char* text,int integer_val,int integer_wal,int integer_xal,int integer_yal,int integer_zal,int integer_qal,int integer_nal,int integer_mal)
+{
+	uint8_t	obuf[1024];
+	int len=sprintf((char*)obuf,text,integer_val,integer_wal,integer_xal,integer_yal,integer_zal,integer_qal,integer_nal,integer_mal);
+	HAL_UART_Transmit(udebug_uart_handler,obuf,len,1000);
+}
+
 void udebug_formatted_six(char* text,int integer_val,int integer_wal,int integer_xal,int integer_yal,int integer_zal,int integer_qal)
 {
 	uint8_t	obuf[1024];
 	int len=sprintf((char*)obuf,text,integer_val,integer_wal,integer_xal,integer_yal,integer_zal,integer_qal);
 	HAL_UART_Transmit(udebug_uart_handler,obuf,len,1000);
 }
+
 //
 void	udebug_binary_variable(char* var_name,uint8_t var_val)
 {

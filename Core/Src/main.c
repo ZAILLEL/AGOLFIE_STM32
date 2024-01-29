@@ -18,6 +18,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "cmsis_os.h"
+#include "adc.h"
 #include "i2c.h"
 #include "usart.h"
 #include "gpio.h"
@@ -52,8 +54,9 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
-
+int16_t int_rescale(int16_t inValue, int16_t inMin, int16_t inMax, int16_t outMin, int16_t outMax);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -92,20 +95,29 @@ int main(void)
   MX_I2C1_Init();
   MX_USART2_UART_Init();
   MX_USART1_UART_Init();
+  MX_ADC1_Init();
   /* USER CODE BEGIN 2 */
 
   udebug_init(&huart2);
   udebug(FG_RED("\r\n\r\n\r\n\r\n-- START\r\n"));
 
 
-  Agolfie_sensors_begin();
+  //Agolfie_sensors_begin();
   Agolfie_config_sensors();
 
-
+  uint16_t valeur_ADC;
 
    HAL_Delay(100);
   /* USER CODE END 2 */
 
+  /* Init scheduler */
+  osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
+  MX_FREERTOS_Init();
+
+  /* Start scheduler */
+  osKernelStart();
+
+  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -113,6 +125,24 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+	  //HAL_ADC_Start(&hadc1);
+
+	  // Attendez la fin de la conversion
+	 // HAL_ADC_PollForConversion(&hadc1, HAL_MAX_DELAY);
+
+	  // Lisez la valeur convertie
+	 // valeur_ADC = HAL_ADC_GetValue(&hadc1);
+
+	  //uint16_t valeur_etalonnee = int_rescale(valeur_ADC, 0, 4095, 0, 150);
+	  Agolfie_update_sensors_value();
+	   //proto_sm();
+
+	 // udebug_formatted_float("V = %f  \r",valeur_etalonnee);
+	 // udebug_formatted_twice("ADC = %d    |  D = % d  \r",valeur_ADC,valeur_etalonnee);
+
+	  HAL_Delay(100);
+
+
 
   }
   /* USER CODE END 3 */
@@ -161,6 +191,27 @@ void SystemClock_Config(void)
 
 /* USER CODE BEGIN 4 */
 
+int16_t int_rescale(int16_t inValue, int16_t inMin, int16_t inMax, int16_t outMin, int16_t outMax)
+{
+	int16_t res;
+	if (inValue < inMin)
+	{
+		res = outMin;
+	}
+	else if (inValue > inMax)
+	{
+		res = outMax;
+	}
+	else
+	{
+		// res = outMin + (inValue-inMin)*(outMax-outMin)/(inMax-inMin)
+		int32_t w_tmp = (inValue-inMin)*(outMax-outMin);
+		w_tmp /= (inMax-inMin);
+		w_tmp += outMin;
+		res = (int16_t) w_tmp;
+	}
+	return res;
+}
 /* USER CODE END 4 */
 
 /**

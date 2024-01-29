@@ -64,11 +64,13 @@ void	udebug_char(char* text_container,char asc_value);
 void 	udebug_colored(char *text,uint8_t udbg_colorcode);
 void 	udebug_raw(char* what);
 void 	udebug_formatted(char* text,int integer_val);
+void 	udebug_formatted_float(char* text,float integer_val);
 void 	udebug_formatted_str(char* text,const char* text2);
 void 	udebug_formatted_twice(char* text,int integer_val,int integer_wal);
 void 	udebug_formatted_twice_int16_binary(char* text,int integer_val,int binary_wal);
 void 	udebug_formatted_four(char* text,int integer_val,int integer_wal,int integer_xal,int integer_yal);
-void udebug_formatted_six(char* text,int integer_val,int integer_wal,int integer_xal,int integer_yal,int integer_zal,int integer_qal);
+void 	udebug_formatted_six(char* text,int integer_val,int integer_wal,int integer_xal,int integer_yal,int integer_zal,int integer_qal);
+void 	udebug_formatted_eight(char* text,int integer_val,int integer_wal,int integer_xal,int integer_yal,int integer_zal,int integer_qal,int integer_nal,int integer_mal);
 void	udebug_binary_variable(char* var_name,uint8_t var_val);
 void 	udebug_function_name(const char* text2);	/* for __FUNCTION__ like calls debug */
 uint8_t* udebug_get_RxBuffer();
