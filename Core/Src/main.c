@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "cmsis_os.h"
 #include "adc.h"
 #include "i2c.h"
 #include "usart.h"
@@ -54,7 +53,6 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 int16_t int_rescale(int16_t inValue, int16_t inMin, int16_t inMax, int16_t outMin, int16_t outMax);
 /* USER CODE END PFP */
@@ -103,21 +101,14 @@ int main(void)
 
 
   //Agolfie_sensors_begin();
-  Agolfie_config_sensors();
+  Agolfie_sensors_begin();
+  //Agolfie_config_sensors();
 
-  uint16_t valeur_ADC;
+
 
    HAL_Delay(100);
   /* USER CODE END 2 */
 
-  /* Init scheduler */
-  osKernelInitialize();  /* Call init function for freertos objects (in freertos.c) */
-  MX_FREERTOS_Init();
-
-  /* Start scheduler */
-  osKernelStart();
-
-  /* We should never get here as control is now taken by the scheduler */
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -132,9 +123,9 @@ int main(void)
 
 	  // Lisez la valeur convertie
 	 // valeur_ADC = HAL_ADC_GetValue(&hadc1);
-
+	 // refresh_obstacle(70);
+	  proto_sm();
 	  //uint16_t valeur_etalonnee = int_rescale(valeur_ADC, 0, 4095, 0, 150);
-	  Agolfie_update_sensors_value();
 	   //proto_sm();
 
 	 // udebug_formatted_float("V = %f  \r",valeur_etalonnee);

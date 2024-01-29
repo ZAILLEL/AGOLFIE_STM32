@@ -48,7 +48,7 @@ void config_sensors_address(uint8_t addr[]){
 
 void Agolfie_sensors_begin()
 {
-	config_sensors_address(addr[NB_SENSORS -1 ]);
+	config_sensors_address(addr);
 
 	for (int i = 0; i<NB_SENSORS; i++){
 		URM13_begin(addr[i]);
@@ -79,15 +79,18 @@ void Agolfie_config_sensors(){
 void Agolfie_update_sensors_value()
 {
 
-	uint16_t sensors_value[NB_SENSORS - 1];
+	uint8_t sensors_value[NB_SENSORS - 1];
 	uint8_t cmd[8] = {0};
+
 	for (int i = 0; i<NB_SENSORS; i++)
 	{
 		cmd[i] |=0x01;
 		if (writeReg(0x0A, &cmd[i], sizeof(cmd[i]),addr[i]) != 0)
 		{
 			sensors_value[i] = getDistanceCm(addr[i]);
+
 		}
+		HAL_Delay(20);
 	}
 	AGOLFIE_SENSORS.Front_Left.distance         =   sensors_value[0];
 	AGOLFIE_SENSORS.Front_CenterLeft.distance   =   sensors_value[1];
@@ -116,31 +119,34 @@ void Agolfie_update_sensors_value()
 
 
 
-void refresh_obstacle(uint8_t distance_cm) {
+void refresh_obstacle(uint8_t distance_min_cm, uint8_t distance_max_cm) {
 
 
 	Agolfie_update_sensors_value();
 
-	obstacle.position.FL  = (AGOLFIE_SENSORS.Front_Left.distance         < distance_cm);
-	obstacle.position.FCL = (AGOLFIE_SENSORS.Front_CenterLeft.distance   < distance_cm);
-	obstacle.position.FCR = (AGOLFIE_SENSORS.Front_CenterRight.distance  < distance_cm);
-	obstacle.position.FR  = (AGOLFIE_SENSORS.Front_Right.distance        < distance_cm);
+	obstacle.position.FL  = ((AGOLFIE_SENSORS.Front_Left.distance         < distance_max_cm)  && (AGOLFIE_SENSORS.Front_Left.distance         > distance_min_cm));
+	obstacle.position.FCL = ((AGOLFIE_SENSORS.Front_CenterLeft.distance   < distance_max_cm)  && (AGOLFIE_SENSORS.Front_Left.distance         > distance_min_cm));
+	obstacle.position.FCR = ((AGOLFIE_SENSORS.Front_CenterRight.distance  < distance_max_cm)  && (AGOLFIE_SENSORS.Front_Left.distance         > distance_min_cm));
+	obstacle.position.FR  = ((AGOLFIE_SENSORS.Front_Right.distance        < distance_max_cm)  && (AGOLFIE_SENSORS.Front_Left.distance         > distance_min_cm));
 
-	obstacle.position.BL  = (AGOLFIE_SENSORS.Back_Left.distance          < distance_cm);
-	obstacle.position.BCL = (AGOLFIE_SENSORS.Back_CenterLeft.distance    < distance_cm);
-	obstacle.position.BCR = (AGOLFIE_SENSORS.Back_CenterRight.distance   < distance_cm);
-	obstacle.position.BR  = (AGOLFIE_SENSORS.Back_Right.distance  	     < distance_cm);
-
-	AGOLFIE_SENSORS.front_status |=  obstacle.position.FL  << 3;
-	AGOLFIE_SENSORS.front_status |=  obstacle.position.FCL << 2;
-	AGOLFIE_SENSORS.front_status |=  obstacle.position.FCR << 1;
-	AGOLFIE_SENSORS.front_status |=  obstacle.position.FR  << 0;
+	obstacle.position.BL  = ((AGOLFIE_SENSORS.Back_Left.distance          < distance_max_cm)  && (AGOLFIE_SENSORS.Front_Left.distance         > distance_min_cm));
+	obstacle.position.BCL = ((AGOLFIE_SENSORS.Back_CenterLeft.distance    < distance_max_cm)  && (AGOLFIE_SENSORS.Front_Left.distance         > distance_min_cm));
+	obstacle.position.BCR = ((AGOLFIE_SENSORS.Back_CenterRight.distance   < distance_max_cm)  && (AGOLFIE_SENSORS.Front_Left.distance         > distance_min_cm));
+	obstacle.position.BR  = ((AGOLFIE_SENSORS.Back_Right.distance  	      < distance_max_cm)  && (AGOLFIE_SENSORS.Front_Left.distance         > distance_min_cm));
 
 
-	AGOLFIE_SENSORS.back_status |=  obstacle.position.FL   << 3;
-	AGOLFIE_SENSORS.back_status |=  obstacle.position.FCL  << 2;
-	AGOLFIE_SENSORS.back_status |=  obstacle.position.FCR  << 1;
-	AGOLFIE_SENSORS.back_status |=  obstacle.position.FR   << 0;
+	AGOLFIE_SENSORS.front_status ^= (AGOLFIE_SENSORS.front_status & 8) ^ (obstacle.position.FL  << 3);
+	AGOLFIE_SENSORS.front_status ^= (AGOLFIE_SENSORS.front_status & 4) ^ (obstacle.position.FCL  << 2);
+	AGOLFIE_SENSORS.front_status ^= (AGOLFIE_SENSORS.front_status & 2) ^ (obstacle.position.FCR  << 1);
+	AGOLFIE_SENSORS.front_status ^= (AGOLFIE_SENSORS.front_status & 1) ^ (obstacle.position.FR  << 0);
+
+
+	AGOLFIE_SENSORS.back_status ^= (AGOLFIE_SENSORS.back_status & 8) ^ (obstacle.position.BL  << 3);
+	AGOLFIE_SENSORS.back_status ^= (AGOLFIE_SENSORS.back_status & 4) ^ (obstacle.position.BCL  << 2);
+	AGOLFIE_SENSORS.back_status ^= (AGOLFIE_SENSORS.back_status & 2) ^ (obstacle.position.BCR  << 1);
+	AGOLFIE_SENSORS.back_status ^= (AGOLFIE_SENSORS.back_status & 1) ^ (obstacle.position.BR  << 0);
+
+
 
 
 }
@@ -285,7 +291,7 @@ uint8_t refresh_front(uint8_t ZONE) {
 void proto_sm()
 {
 
-	refresh_obstacle(60);
+	refresh_obstacle(50,80);
 
 	if (AGOLFIE_SENSORS.front_status & 0b0001)
 	{

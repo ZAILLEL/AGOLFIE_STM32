@@ -58,7 +58,7 @@ __attribute__((unused)) static const char* _DEBUG_AGOLFIE_BACKWARD[BACK_MS_MAX] 
 
 typedef struct us_sensor
 {
-	uint16_t distance;
+	uint8_t distance;
 	uint8_t addr;
 }us_sensor;
 
@@ -120,7 +120,7 @@ uint16_t getDistanceMin();
 void Agolfie_SetSpeed(uint8_t p);
 
 
-void refresh_obstacle(uint8_t distance_cm);
+void refresh_obstacle(uint8_t distance_min_cm, uint8_t distance_max_cm);
 uint8_t refresh_front(uint8_t ZONE);
 uint8_t refresh_back(uint8_t ZONE);
 void obstacle1M();
