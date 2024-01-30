@@ -64,6 +64,27 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
+void UART_Init(void) {
+  __HAL_RCC_USART1_CLK_ENABLE();
+
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 9600;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+
+  if (HAL_UART_Init(&huart1) != HAL_OK) {
+    Error_Handler();
+  }
+}
+
+void UART_SendData(const uint8_t *data, uint16_t size) {
+  HAL_UART_Transmit(&huart1, (uint8_t*)data, size, HAL_MAX_DELAY);
+}
+
 /* USER CODE END 0 */
 
 /**
@@ -95,11 +116,10 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_I2C1_Init();
-  MX_USART2_UART_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
 
-  udebug_init(&huart2);
+  udebug_init(&huart1);
   udebug(FG_RED("\r\n\r\n\r\n\r\n-- START\r\n"));
 
 
@@ -147,6 +167,8 @@ int main(void)
 		  if (writeReg(0x0A, &cmd[i], sizeof(cmd[i]),addr[i]) != 0)
 		  {
 			  udebug_formatted_twice("Distance[%d] = %d  \r\n ",addr[i],getDistanceCm(addr[i]));
+
+
 		  }
 
 		  HAL_Delay(1000);
