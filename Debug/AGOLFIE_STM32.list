@@ -964,12 +964,12 @@ int main(void)
  8000870:	b2db      	uxtb	r3, r3
  8000872:	72fb      	strb	r3, [r7, #11]
    //cfg |= MEASURE_RANGE_BIT;//set bit4,short-range ranging mode
-   //cfg |= MEASURE_MODE_BIT;//Set bit2，i2c passive mode
-   cfg &= ~MEASURE_MODE_BIT;//clear bit2 , set to Automatic ranging mode
+   cfg |= MEASURE_MODE_BIT;//Set bit2，i2c passive mode
  8000874:	7afb      	ldrb	r3, [r7, #11]
- 8000876:	f023 0304 	bic.w	r3, r3, #4
+ 8000876:	f043 0304 	orr.w	r3, r3, #4
  800087a:	b2db      	uxtb	r3, r3
  800087c:	72fb      	strb	r3, [r7, #11]
+   //cfg &= ~MEASURE_MODE_BIT;//clear bit2 , set to Automatic ranging mode
    cfg &= ~TEMP_CPT_ENABLE_BIT;//clear bit1,enable temperature compensation
  800087e:	7afb      	ldrb	r3, [r7, #11]
  8000880:	f023 0302 	bic.w	r3, r3, #2

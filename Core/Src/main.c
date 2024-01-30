@@ -52,7 +52,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t addr[8] = {0x01, 0x02, 0x03, 0X04, 0x05, 0x09, 0x07, 0x08};
+uint8_t addr[8] = {0x01, 0x02, 0x03, 0X04, 0x05, 0x06, 0x07, 0x08};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -121,8 +121,8 @@ int main(void)
 
    cfg &= ~MEASURE_RANGE_BIT;//clear bit4,long-range ranging mode
    //cfg |= MEASURE_RANGE_BIT;//set bit4,short-range ranging mode
-   //cfg |= MEASURE_MODE_BIT;//Set bit2，i2c passive mode
-   cfg |= MEASURE_MODE_BIT;//clear bit2 , set to Automatic ranging mode
+   cfg |= MEASURE_MODE_BIT;//Set bit2，i2c passive mode
+   //cfg &= ~MEASURE_MODE_BIT;//clear bit2 , set to Automatic ranging mode
    cfg &= ~TEMP_CPT_ENABLE_BIT;//clear bit1,enable temperature compensation
    //cfg |= TEMP_CPT_ENABLE_BIT;//set bit1,disable temperature compensation
    cfg &= ~TEMP_CPT_SEL_BIT;//clear bit0,select internal temperature compensation
