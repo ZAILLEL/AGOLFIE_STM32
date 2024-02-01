@@ -9,4 +9,4 @@
 ../Core/Src/AGOLFIE.c:232:6:proto_sm	8	static
 ../Core/Src/AGOLFIE.c:319:9:refresh_back	16	static
 ../Core/Src/AGOLFIE.c:348:6:Agolfie_init	4	static
-../Core/Src/AGOLFIE.c:356:6:Agolfie_SetSpeed	24	static
+../Core/Src/AGOLFIE.c:356:6:Agolfie_SetSpeed	16	static

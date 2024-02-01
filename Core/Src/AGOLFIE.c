@@ -355,8 +355,6 @@ void Agolfie_init()
 
 void Agolfie_SetSpeed(uint8_t p) {
 
-    uint16_t dacValue = (p * 4095) / 100;
-
 
 
 }

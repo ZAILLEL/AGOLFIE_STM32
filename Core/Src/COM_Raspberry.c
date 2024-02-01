@@ -105,6 +105,6 @@ void sendingData() {
   // Ajoutez des lignes similaires pour les autres capteurs
 
   // Envoi du buffer via la communication UART
-  HAL_UART_Transmit(&huart1, buff, sizeof(buff), HAL_MAX_DELAY);
+  HAL_UART_Transmit(&huart2, buff, sizeof(buff), HAL_MAX_DELAY);
 }
 

@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2023 STMicroelectronics.
+  * Copyright (c) 2024 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -27,7 +27,7 @@ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx_hal.h"
+#include "stm32h7xx_hal.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -57,22 +57,36 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define B1_Pin GPIO_PIN_13
+#define B1_GPIO_Port GPIOC
+#define LED_BL_Pin GPIO_PIN_0
+#define LED_BL_GPIO_Port GPIOF
+#define LED_BCL_Pin GPIO_PIN_1
+#define LED_BCL_GPIO_Port GPIOF
+#define LED_BCR_Pin GPIO_PIN_2
+#define LED_BCR_GPIO_Port GPIOF
+#define LED_BR_Pin GPIO_PIN_3
+#define LED_BR_GPIO_Port GPIOF
+#define LED_FL_Pin GPIO_PIN_4
+#define LED_FL_GPIO_Port GPIOF
 #define LED_FCL_Pin GPIO_PIN_5
-#define LED_FCL_GPIO_Port GPIOC
-#define LED_FL_Pin GPIO_PIN_12
-#define LED_FL_GPIO_Port GPIOB
-#define LED_FCR_Pin GPIO_PIN_6
-#define LED_FCR_GPIO_Port GPIOC
-#define LED_FR_Pin GPIO_PIN_8
-#define LED_FR_GPIO_Port GPIOC
-#define LED_BCL_Pin GPIO_PIN_13
-#define LED_BCL_GPIO_Port GPIOA
-#define LED_BL_Pin GPIO_PIN_14
-#define LED_BL_GPIO_Port GPIOA
-#define LED_BR_Pin GPIO_PIN_10
-#define LED_BR_GPIO_Port GPIOC
-#define LED_BCR_Pin GPIO_PIN_12
-#define LED_BCR_GPIO_Port GPIOC
+#define LED_FCL_GPIO_Port GPIOF
+#define LED_FCR_Pin GPIO_PIN_7
+#define LED_FCR_GPIO_Port GPIOF
+#define LED_FR_Pin GPIO_PIN_9
+#define LED_FR_GPIO_Port GPIOF
+#define LD1_Pin GPIO_PIN_0
+#define LD1_GPIO_Port GPIOB
+#define LD3_Pin GPIO_PIN_14
+#define LD3_GPIO_Port GPIOB
+#define STLINK_RX_Pin GPIO_PIN_8
+#define STLINK_RX_GPIO_Port GPIOD
+#define STLINK_TX_Pin GPIO_PIN_9
+#define STLINK_TX_GPIO_Port GPIOD
+#define USB_OTG_FS_PWR_EN_Pin GPIO_PIN_10
+#define USB_OTG_FS_PWR_EN_GPIO_Port GPIOD
+#define LD2_Pin GPIO_PIN_1
+#define LD2_GPIO_Port GPIOE
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

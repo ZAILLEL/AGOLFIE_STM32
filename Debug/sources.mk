@@ -24,5 +24,5 @@ SUBDIRS := \
 Core/Src \
 Core/Startup \
 Core/debug_toolbox/Src \
-Drivers/STM32F4xx_HAL_Driver/Src \
+Drivers/STM32H7xx_HAL_Driver/Src \
 
