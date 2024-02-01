@@ -100,10 +100,9 @@ int main(void)
   udebug(FG_RED("\r\n\r\n\r\n\r\n-- START\r\n"));
 
 
-  //Agolfie_sensors_begin();
-  Agolfie_sensors_begin();
-  //Agolfie_config_sensors();
-
+   //Agolfie_sensors_begin();
+   Agolfie_sensors_begin();
+   //Agolfie_config_sensors();
 
 
    HAL_Delay(100);

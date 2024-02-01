@@ -23,10 +23,10 @@ uint8_t addr[NB_SENSORS -1];
 
 void config_sensors_address(uint8_t addr[]){
 
-	AGOLFIE_SENSORS.Back_Left.addr           = 0x01;
-	AGOLFIE_SENSORS.Back_CenterLeft.addr     = 0x02;
-	AGOLFIE_SENSORS.Back_CenterRight.addr    = 0x03;
-	AGOLFIE_SENSORS.Back_Right.addr          = 0x04;
+	AGOLFIE_SENSORS.Back_Left.addr            = 0x01;
+	AGOLFIE_SENSORS.Back_CenterLeft.addr      = 0x02;
+	AGOLFIE_SENSORS.Back_CenterRight.addr     = 0x03;
+	AGOLFIE_SENSORS.Back_Right.addr           = 0x04;
 
 	AGOLFIE_SENSORS.Front_Left.addr           = 0x05;
 	AGOLFIE_SENSORS.Front_CenterLeft.addr     = 0x06;
@@ -92,14 +92,15 @@ void Agolfie_update_sensors_value()
 		}
 		HAL_Delay(20);
 	}
-	AGOLFIE_SENSORS.Front_Left.distance         =   sensors_value[0];
-	AGOLFIE_SENSORS.Front_CenterLeft.distance   =   sensors_value[1];
-	AGOLFIE_SENSORS.Front_CenterRight.distance  =   sensors_value[2];
-	AGOLFIE_SENSORS.Front_Right.distance        =   sensors_value[3];
-	AGOLFIE_SENSORS.Back_Left.distance          =   sensors_value[4];
-	AGOLFIE_SENSORS.Back_CenterLeft.distance    =   sensors_value[5];
-	AGOLFIE_SENSORS.Back_CenterRight.distance   =   sensors_value[6];
-	AGOLFIE_SENSORS.Back_Right.distance  	    =   sensors_value[7];
+
+	AGOLFIE_SENSORS.Front_Left.distance          =   sensors_value[0];
+	AGOLFIE_SENSORS.Front_CenterLeft.distance    =   sensors_value[1];
+	AGOLFIE_SENSORS.Front_CenterRight.distance   =   sensors_value[2];
+	AGOLFIE_SENSORS.Front_Right.distance         =   sensors_value[3];
+	AGOLFIE_SENSORS.Back_Left.distance           =   sensors_value[4];
+	AGOLFIE_SENSORS.Back_CenterLeft.distance     =   sensors_value[5];
+	AGOLFIE_SENSORS.Back_CenterRight.distance    =   sensors_value[6];
+	AGOLFIE_SENSORS.Back_Right.distance  	     =   sensors_value[7];
 
 
 
@@ -110,8 +111,9 @@ void Agolfie_update_sensors_value()
 			AGOLFIE_SENSORS.Front_Right.distance,
 			AGOLFIE_SENSORS.Back_Left.distance,
 			AGOLFIE_SENSORS.Back_CenterLeft.distance ,
-			AGOLFIE_SENSORS.Back_CenterRight.distance ,
+			AGOLFIE_SENSORS.Back_CenterRight.distance,
 			AGOLFIE_SENSORS.Back_Right.distance  	  );
+
 
 }
 
@@ -135,79 +137,18 @@ void refresh_obstacle(uint8_t distance_min_cm, uint8_t distance_max_cm) {
 	obstacle.position.BR  = ((AGOLFIE_SENSORS.Back_Right.distance  	      < distance_max_cm)  && (AGOLFIE_SENSORS.Front_Left.distance         > distance_min_cm));
 
 
-	AGOLFIE_SENSORS.front_status ^= (AGOLFIE_SENSORS.front_status & 8) ^ (obstacle.position.FL  << 3);
-	AGOLFIE_SENSORS.front_status ^= (AGOLFIE_SENSORS.front_status & 4) ^ (obstacle.position.FCL  << 2);
-	AGOLFIE_SENSORS.front_status ^= (AGOLFIE_SENSORS.front_status & 2) ^ (obstacle.position.FCR  << 1);
-	AGOLFIE_SENSORS.front_status ^= (AGOLFIE_SENSORS.front_status & 1) ^ (obstacle.position.FR  << 0);
+	AGOLFIE_SENSORS.front_status ^= ((AGOLFIE_SENSORS.front_status & 8) ^ (obstacle.position.FL   << 3));
+	AGOLFIE_SENSORS.front_status ^= ((AGOLFIE_SENSORS.front_status & 4) ^ (obstacle.position.FCL  << 2));
+	AGOLFIE_SENSORS.front_status ^= ((AGOLFIE_SENSORS.front_status & 2) ^ (obstacle.position.FCR  << 1));
+	AGOLFIE_SENSORS.front_status ^= ((AGOLFIE_SENSORS.front_status & 1) ^ (obstacle.position.FR   << 0));
 
-
-	AGOLFIE_SENSORS.back_status ^= (AGOLFIE_SENSORS.back_status & 8) ^ (obstacle.position.BL  << 3);
-	AGOLFIE_SENSORS.back_status ^= (AGOLFIE_SENSORS.back_status & 4) ^ (obstacle.position.BCL  << 2);
-	AGOLFIE_SENSORS.back_status ^= (AGOLFIE_SENSORS.back_status & 2) ^ (obstacle.position.BCR  << 1);
-	AGOLFIE_SENSORS.back_status ^= (AGOLFIE_SENSORS.back_status & 1) ^ (obstacle.position.BR  << 0);
-
-
-
+	AGOLFIE_SENSORS.back_status  ^= ((AGOLFIE_SENSORS.back_status & 8) ^ (obstacle.position.BL    << 3));
+	AGOLFIE_SENSORS.back_status  ^= ((AGOLFIE_SENSORS.back_status & 4) ^ (obstacle.position.BCL   << 2));
+	AGOLFIE_SENSORS.back_status  ^= ((AGOLFIE_SENSORS.back_status & 2) ^ (obstacle.position.BCR   << 1));
+	AGOLFIE_SENSORS.back_status  ^= ((AGOLFIE_SENSORS.back_status & 1) ^ (obstacle.position.BR    << 0));
 
 }
 
-
-//void obstacle1M() {
-//
-//	obstacle.position1M.FL  = (AGOLFIE_SENSORS.Front_Left.distance        < 100);
-//	obstacle.position1M.FCL = (AGOLFIE_SENSORS.Front_CenterLeft.distance  < 100);
-//	obstacle.position1M.FCR = (AGOLFIE_SENSORS.Front_CenterRight.distance < 100);
-//	obstacle.position1M.FR  = (AGOLFIE_SENSORS.Front_Right.distance       < 100);
-//	obstacle.position1M.BL  = (AGOLFIE_SENSORS.Back_Left.distance         < 100);
-//	obstacle.position1M.BCL = (AGOLFIE_SENSORS.Back_CenterLeft.distance   < 100);
-//	obstacle.position1M.BCR = (AGOLFIE_SENSORS.Back_CenterRight.distance  < 100);
-//	obstacle.position1M.BR  = (AGOLFIE_SENSORS.Back_Right.distance  	  < 100);
-//
-//}
-//
-//void obstacle2M() {
-//
-//	obstacle.position2M.FL  = (AGOLFIE_SENSORS.Front_Left.distance        < 200);
-//	obstacle.position2M.FCL = (AGOLFIE_SENSORS.Front_CenterLeft.distance  < 200);
-//	obstacle.position2M.FCR = (AGOLFIE_SENSORS.Front_CenterRight.distance < 200);
-//	obstacle.position2M.FR  = (AGOLFIE_SENSORS.Front_Right.distance       < 200);
-//	obstacle.position2M.BL  = (AGOLFIE_SENSORS.Back_Left.distance         < 200);
-//	obstacle.position2M.BCL = (AGOLFIE_SENSORS.Back_CenterLeft.distance   < 200);
-//	obstacle.position2M.BCR = (AGOLFIE_SENSORS.Back_CenterRight.distance  < 200);
-//	obstacle.position2M.BR  = (AGOLFIE_SENSORS.Back_Right.distance  	  < 200);
-//
-//
-//}
-//
-//
-//void obstacle3M() {
-//
-//	obstacle.position3M.FL  = (AGOLFIE_SENSORS.Front_Left.distance        < 300);
-//	obstacle.position3M.FCL = (AGOLFIE_SENSORS.Front_CenterLeft.distance  < 300);
-//	obstacle.position3M.FCR = (AGOLFIE_SENSORS.Front_CenterRight.distance < 300);
-//	obstacle.position3M.FR  = (AGOLFIE_SENSORS.Front_Right.distance       < 300);
-//	obstacle.position3M.BL  = (AGOLFIE_SENSORS.Back_Left.distance         < 300);
-//	obstacle.position3M.BCL = (AGOLFIE_SENSORS.Back_CenterLeft.distance   < 300);
-//	obstacle.position3M.BCR = (AGOLFIE_SENSORS.Back_CenterRight.distance  < 300);
-//	obstacle.position3M.BR  = (AGOLFIE_SENSORS.Back_Right.distance  	  < 300);
-//
-//
-//}
-//
-//
-//void obstacle4M() {
-//
-//	obstacle.position4M.FL  = (AGOLFIE_SENSORS.Front_Left.distance        < 400);
-//	obstacle.position4M.FCL = (AGOLFIE_SENSORS.Front_CenterLeft.distance  < 400);
-//	obstacle.position4M.FCR = (AGOLFIE_SENSORS.Front_CenterRight.distance < 400);
-//	obstacle.position4M.FR  = (AGOLFIE_SENSORS.Front_Right.distance       < 400);
-//	obstacle.position4M.BL  = (AGOLFIE_SENSORS.Back_Left.distance         < 400);
-//	obstacle.position4M.BCL = (AGOLFIE_SENSORS.Back_CenterLeft.distance   < 400);
-//	obstacle.position4M.BCR = (AGOLFIE_SENSORS.Back_CenterRight.distance  < 400);
-//	obstacle.position4M.BR  = (AGOLFIE_SENSORS.Back_Right.distance  	  < 400);
-//
-//
-//}
 
 void Agolfie_Forward_dostep(uint8_t ZONE)
 {
@@ -293,6 +234,10 @@ void proto_sm()
 
 	refresh_obstacle(50,80);
 
+
+	/*********  LEDS en fonctions des capteurs **********/
+	/*********       CAPTEURS AVANT            **********/
+
 	if (AGOLFIE_SENSORS.front_status & 0b0001)
 	{
 		HAL_GPIO_WritePin(LED_FR_GPIO_Port,LED_FR_Pin,1);
@@ -302,7 +247,6 @@ void proto_sm()
 	}
 
 
-
 	if (AGOLFIE_SENSORS.front_status & 0b0010)
 	{
 		HAL_GPIO_WritePin(LED_FCR_GPIO_Port,LED_FCR_Pin,1);
@@ -310,7 +254,6 @@ void proto_sm()
 	else {
 		HAL_GPIO_WritePin(LED_FCR_GPIO_Port,LED_FCR_Pin,0);
 	}
-
 
 
 	if (AGOLFIE_SENSORS.front_status & 0b0100)
@@ -334,7 +277,8 @@ void proto_sm()
 
 
 
-
+	/*********  LEDS en fonctions des capteurs **********/
+	/*********       CAPTEURS ARRIERRES        **********/
 
 	if (AGOLFIE_SENSORS.back_status & 0b0001)
 	{
@@ -344,8 +288,6 @@ void proto_sm()
 		HAL_GPIO_WritePin(LED_BR_GPIO_Port,LED_BR_Pin,0);
 	}
 
-
-
 	if (AGOLFIE_SENSORS.back_status & 0b0010)
 	{
 		HAL_GPIO_WritePin(LED_BCR_GPIO_Port,LED_BCR_Pin,1);
@@ -354,8 +296,6 @@ void proto_sm()
 		HAL_GPIO_WritePin(LED_BCR_GPIO_Port,LED_BCR_Pin,0);
 	}
 
-
-
 	if (AGOLFIE_SENSORS.back_status & 0b0100)
 	{
 		HAL_GPIO_WritePin(LED_BCL_GPIO_Port,LED_BCL_Pin,1);
@@ -363,7 +303,6 @@ void proto_sm()
 	else {
 		HAL_GPIO_WritePin(LED_BCL_GPIO_Port,LED_BCL_Pin,0);
 	}
-
 
 	if (AGOLFIE_SENSORS.back_status & 0b1000)
 	{
@@ -405,23 +344,21 @@ uint8_t refresh_back(uint8_t ZONE)
 
 
 
+
 void Agolfie_init()
 {
 	AGOLFIE_SENSORS.ZONE_BACK = BACK_OUT;
 	AGOLFIE_SENSORS.ZONE_FRONT = FRONT_OUT;
 }
 
+
+
 void Agolfie_SetSpeed(uint8_t p) {
-	/*
+
     uint16_t dacValue = (p * 4095) / 100;
 
-    DAC_SetChannel1Data(DAC_Align_12b_R, dacValue);
-    DAC_SoftwareTriggerCmd(DAC_Channel_1, ENABLE);
-    while (DAC_GetFlagStatus(DAC_Channel_1, DAC_FLAG_DMAUDR) == RESET) {
 
-    }
 
-    */
 }
 
 

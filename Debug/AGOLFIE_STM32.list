@@ -27,23 +27,23 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  00020070  2**0
                   CONTENTS, READONLY
- 12 .debug_info   0000e659  00000000  00000000  000200a0  2**0
+ 12 .debug_info   0000e666  00000000  00000000  000200a0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 000024b6  00000000  00000000  0002e6f9  2**0
+ 13 .debug_abbrev 000024e5  00000000  00000000  0002e706  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000bf0  00000000  00000000  00030bb0  2**3
+ 14 .debug_aranges 00000bf0  00000000  00000000  00030bf0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_ranges 00000b00  00000000  00000000  000317a0  2**3
+ 15 .debug_ranges 00000b00  00000000  00000000  000317e0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000185f2  00000000  00000000  000322a0  2**0
+ 16 .debug_macro  000185f2  00000000  00000000  000322e0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00011055  00000000  00000000  0004a892  2**0
+ 17 .debug_line   00011056  00000000  00000000  0004a8d2  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000940db  00000000  00000000  0005b8e7  2**0
+ 18 .debug_str    000940e4  00000000  00000000  0005b928  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000050  00000000  00000000  000ef9c2  2**0
+ 19 .comment      00000050  00000000  00000000  000efa0c  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00003430  00000000  00000000  000efa14  2**2
+ 20 .debug_frame  00003430  00000000  00000000  000efa5c  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -422,19 +422,19 @@ void config_sensors_address(uint8_t addr[]){
  8000588:	af00      	add	r7, sp, #0
  800058a:	6078      	str	r0, [r7, #4]
 
-	AGOLFIE_SENSORS.Back_Left.addr           = 0x01;
+	AGOLFIE_SENSORS.Back_Left.addr            = 0x01;
  800058c:	4b22      	ldr	r3, [pc, #136]	; (8000618 <config_sensors_address+0x94>)
  800058e:	2201      	movs	r2, #1
  8000590:	725a      	strb	r2, [r3, #9]
-	AGOLFIE_SENSORS.Back_CenterLeft.addr     = 0x02;
+	AGOLFIE_SENSORS.Back_CenterLeft.addr      = 0x02;
  8000592:	4b21      	ldr	r3, [pc, #132]	; (8000618 <config_sensors_address+0x94>)
  8000594:	2202      	movs	r2, #2
  8000596:	72da      	strb	r2, [r3, #11]
-	AGOLFIE_SENSORS.Back_CenterRight.addr    = 0x03;
+	AGOLFIE_SENSORS.Back_CenterRight.addr     = 0x03;
  8000598:	4b1f      	ldr	r3, [pc, #124]	; (8000618 <config_sensors_address+0x94>)
  800059a:	2203      	movs	r2, #3
  800059c:	735a      	strb	r2, [r3, #13]
-	AGOLFIE_SENSORS.Back_Right.addr          = 0x04;
+	AGOLFIE_SENSORS.Back_Right.addr           = 0x04;
  800059e:	4b1e      	ldr	r3, [pc, #120]	; (8000618 <config_sensors_address+0x94>)
  80005a0:	2204      	movs	r2, #4
  80005a2:	73da      	strb	r2, [r3, #15]
@@ -631,35 +631,36 @@ void Agolfie_update_sensors_value()
  80006cc:	2b07      	cmp	r3, #7
  80006ce:	ddcd      	ble.n	800066c <Agolfie_update_sensors_value+0x14>
 	}
-	AGOLFIE_SENSORS.Front_Left.distance         =   sensors_value[0];
+
+	AGOLFIE_SENSORS.Front_Left.distance          =   sensors_value[0];
  80006d0:	7b3a      	ldrb	r2, [r7, #12]
  80006d2:	4b1f      	ldr	r3, [pc, #124]	; (8000750 <Agolfie_update_sensors_value+0xf8>)
  80006d4:	701a      	strb	r2, [r3, #0]
-	AGOLFIE_SENSORS.Front_CenterLeft.distance   =   sensors_value[1];
+	AGOLFIE_SENSORS.Front_CenterLeft.distance    =   sensors_value[1];
  80006d6:	7b7a      	ldrb	r2, [r7, #13]
  80006d8:	4b1d      	ldr	r3, [pc, #116]	; (8000750 <Agolfie_update_sensors_value+0xf8>)
  80006da:	709a      	strb	r2, [r3, #2]
-	AGOLFIE_SENSORS.Front_CenterRight.distance  =   sensors_value[2];
+	AGOLFIE_SENSORS.Front_CenterRight.distance   =   sensors_value[2];
  80006dc:	7bba      	ldrb	r2, [r7, #14]
  80006de:	4b1c      	ldr	r3, [pc, #112]	; (8000750 <Agolfie_update_sensors_value+0xf8>)
  80006e0:	711a      	strb	r2, [r3, #4]
-	AGOLFIE_SENSORS.Front_Right.distance        =   sensors_value[3];
+	AGOLFIE_SENSORS.Front_Right.distance         =   sensors_value[3];
  80006e2:	7bfa      	ldrb	r2, [r7, #15]
  80006e4:	4b1a      	ldr	r3, [pc, #104]	; (8000750 <Agolfie_update_sensors_value+0xf8>)
  80006e6:	719a      	strb	r2, [r3, #6]
-	AGOLFIE_SENSORS.Back_Left.distance          =   sensors_value[4];
+	AGOLFIE_SENSORS.Back_Left.distance           =   sensors_value[4];
  80006e8:	7c3a      	ldrb	r2, [r7, #16]
  80006ea:	4b19      	ldr	r3, [pc, #100]	; (8000750 <Agolfie_update_sensors_value+0xf8>)
  80006ec:	721a      	strb	r2, [r3, #8]
-	AGOLFIE_SENSORS.Back_CenterLeft.distance    =   sensors_value[5];
+	AGOLFIE_SENSORS.Back_CenterLeft.distance     =   sensors_value[5];
  80006ee:	7c7a      	ldrb	r2, [r7, #17]
  80006f0:	4b17      	ldr	r3, [pc, #92]	; (8000750 <Agolfie_update_sensors_value+0xf8>)
  80006f2:	729a      	strb	r2, [r3, #10]
-	AGOLFIE_SENSORS.Back_CenterRight.distance   =   sensors_value[6];
+	AGOLFIE_SENSORS.Back_CenterRight.distance    =   sensors_value[6];
  80006f4:	7cba      	ldrb	r2, [r7, #18]
  80006f6:	4b16      	ldr	r3, [pc, #88]	; (8000750 <Agolfie_update_sensors_value+0xf8>)
  80006f8:	731a      	strb	r2, [r3, #12]
-	AGOLFIE_SENSORS.Back_Right.distance  	    =   sensors_value[7];
+	AGOLFIE_SENSORS.Back_Right.distance  	     =   sensors_value[7];
  80006fa:	7cfa      	ldrb	r2, [r7, #19]
  80006fc:	4b14      	ldr	r3, [pc, #80]	; (8000750 <Agolfie_update_sensors_value+0xf8>)
  80006fe:	739a      	strb	r2, [r3, #14]
@@ -697,7 +698,7 @@ void Agolfie_update_sensors_value()
  8000720:	7a9b      	ldrb	r3, [r3, #10]
 	udebug_formatted_eight("Front_Left = %d | Front_CL = %d | Front_CR = %d | Front_Right = %d  \r\n  Back_Left = %d | Back_CL = %d | Back_CR = %d | Back_Right = %d ",
  8000722:	4618      	mov	r0, r3
-			AGOLFIE_SENSORS.Back_CenterRight.distance ,
+			AGOLFIE_SENSORS.Back_CenterRight.distance,
  8000724:	4b0a      	ldr	r3, [pc, #40]	; (8000750 <Agolfie_update_sensors_value+0xf8>)
  8000726:	7b1b      	ldrb	r3, [r3, #12]
 	udebug_formatted_eight("Front_Left = %d | Front_CL = %d | Front_CR = %d | Front_Right = %d  \r\n  Back_Left = %d | Back_CL = %d | Back_CR = %d | Back_Right = %d ",
@@ -716,6 +717,7 @@ void Agolfie_update_sensors_value()
  800073c:	4629      	mov	r1, r5
  800073e:	4805      	ldr	r0, [pc, #20]	; (8000754 <Agolfie_update_sensors_value+0xfc>)
  8000740:	f000 fe82 	bl	8001448 <udebug_formatted_eight>
+
 
 }
  8000744:	bf00      	nop
@@ -877,7 +879,7 @@ void refresh_obstacle(uint8_t distance_min_cm, uint8_t distance_max_cm) {
  800085a:	61d3      	str	r3, [r2, #28]
 
 
-	AGOLFIE_SENSORS.front_status ^= (AGOLFIE_SENSORS.front_status & 8) ^ (obstacle.position.FL  << 3);
+	AGOLFIE_SENSORS.front_status ^= ((AGOLFIE_SENSORS.front_status & 8) ^ (obstacle.position.FL   << 3));
  800085c:	4b50      	ldr	r3, [pc, #320]	; (80009a0 <refresh_obstacle+0x248>)
  800085e:	7c1b      	ldrb	r3, [r3, #16]
  8000860:	b25a      	sxtb	r2, r3
@@ -897,7 +899,7 @@ void refresh_obstacle(uint8_t distance_min_cm, uint8_t distance_max_cm) {
  800087e:	b2da      	uxtb	r2, r3
  8000880:	4b47      	ldr	r3, [pc, #284]	; (80009a0 <refresh_obstacle+0x248>)
  8000882:	741a      	strb	r2, [r3, #16]
-	AGOLFIE_SENSORS.front_status ^= (AGOLFIE_SENSORS.front_status & 4) ^ (obstacle.position.FCL  << 2);
+	AGOLFIE_SENSORS.front_status ^= ((AGOLFIE_SENSORS.front_status & 4) ^ (obstacle.position.FCL  << 2));
  8000884:	4b46      	ldr	r3, [pc, #280]	; (80009a0 <refresh_obstacle+0x248>)
  8000886:	7c1b      	ldrb	r3, [r3, #16]
  8000888:	b25a      	sxtb	r2, r3
@@ -917,7 +919,7 @@ void refresh_obstacle(uint8_t distance_min_cm, uint8_t distance_max_cm) {
  80008a6:	b2da      	uxtb	r2, r3
  80008a8:	4b3d      	ldr	r3, [pc, #244]	; (80009a0 <refresh_obstacle+0x248>)
  80008aa:	741a      	strb	r2, [r3, #16]
-	AGOLFIE_SENSORS.front_status ^= (AGOLFIE_SENSORS.front_status & 2) ^ (obstacle.position.FCR  << 1);
+	AGOLFIE_SENSORS.front_status ^= ((AGOLFIE_SENSORS.front_status & 2) ^ (obstacle.position.FCR  << 1));
  80008ac:	4b3c      	ldr	r3, [pc, #240]	; (80009a0 <refresh_obstacle+0x248>)
  80008ae:	7c1b      	ldrb	r3, [r3, #16]
  80008b0:	b25a      	sxtb	r2, r3
@@ -937,7 +939,7 @@ void refresh_obstacle(uint8_t distance_min_cm, uint8_t distance_max_cm) {
  80008ce:	b2da      	uxtb	r2, r3
  80008d0:	4b33      	ldr	r3, [pc, #204]	; (80009a0 <refresh_obstacle+0x248>)
  80008d2:	741a      	strb	r2, [r3, #16]
-	AGOLFIE_SENSORS.front_status ^= (AGOLFIE_SENSORS.front_status & 1) ^ (obstacle.position.FR  << 0);
+	AGOLFIE_SENSORS.front_status ^= ((AGOLFIE_SENSORS.front_status & 1) ^ (obstacle.position.FR   << 0));
  80008d4:	4b32      	ldr	r3, [pc, #200]	; (80009a0 <refresh_obstacle+0x248>)
  80008d6:	7c1b      	ldrb	r3, [r3, #16]
  80008d8:	b25a      	sxtb	r2, r3
@@ -957,8 +959,7 @@ void refresh_obstacle(uint8_t distance_min_cm, uint8_t distance_max_cm) {
  80008f6:	4b2a      	ldr	r3, [pc, #168]	; (80009a0 <refresh_obstacle+0x248>)
  80008f8:	741a      	strb	r2, [r3, #16]
 
-
-	AGOLFIE_SENSORS.back_status ^= (AGOLFIE_SENSORS.back_status & 8) ^ (obstacle.position.BL  << 3);
+	AGOLFIE_SENSORS.back_status  ^= ((AGOLFIE_SENSORS.back_status & 8) ^ (obstacle.position.BL    << 3));
  80008fa:	4b29      	ldr	r3, [pc, #164]	; (80009a0 <refresh_obstacle+0x248>)
  80008fc:	7c5b      	ldrb	r3, [r3, #17]
  80008fe:	b25a      	sxtb	r2, r3
@@ -978,7 +979,7 @@ void refresh_obstacle(uint8_t distance_min_cm, uint8_t distance_max_cm) {
  800091c:	b2da      	uxtb	r2, r3
  800091e:	4b20      	ldr	r3, [pc, #128]	; (80009a0 <refresh_obstacle+0x248>)
  8000920:	745a      	strb	r2, [r3, #17]
-	AGOLFIE_SENSORS.back_status ^= (AGOLFIE_SENSORS.back_status & 4) ^ (obstacle.position.BCL  << 2);
+	AGOLFIE_SENSORS.back_status  ^= ((AGOLFIE_SENSORS.back_status & 4) ^ (obstacle.position.BCL   << 2));
  8000922:	4b1f      	ldr	r3, [pc, #124]	; (80009a0 <refresh_obstacle+0x248>)
  8000924:	7c5b      	ldrb	r3, [r3, #17]
  8000926:	b25a      	sxtb	r2, r3
@@ -998,7 +999,7 @@ void refresh_obstacle(uint8_t distance_min_cm, uint8_t distance_max_cm) {
  8000944:	b2da      	uxtb	r2, r3
  8000946:	4b16      	ldr	r3, [pc, #88]	; (80009a0 <refresh_obstacle+0x248>)
  8000948:	745a      	strb	r2, [r3, #17]
-	AGOLFIE_SENSORS.back_status ^= (AGOLFIE_SENSORS.back_status & 2) ^ (obstacle.position.BCR  << 1);
+	AGOLFIE_SENSORS.back_status  ^= ((AGOLFIE_SENSORS.back_status & 2) ^ (obstacle.position.BCR   << 1));
  800094a:	4b15      	ldr	r3, [pc, #84]	; (80009a0 <refresh_obstacle+0x248>)
  800094c:	7c5b      	ldrb	r3, [r3, #17]
  800094e:	b25a      	sxtb	r2, r3
@@ -1018,7 +1019,7 @@ void refresh_obstacle(uint8_t distance_min_cm, uint8_t distance_max_cm) {
  800096c:	b2da      	uxtb	r2, r3
  800096e:	4b0c      	ldr	r3, [pc, #48]	; (80009a0 <refresh_obstacle+0x248>)
  8000970:	745a      	strb	r2, [r3, #17]
-	AGOLFIE_SENSORS.back_status ^= (AGOLFIE_SENSORS.back_status & 1) ^ (obstacle.position.BR  << 0);
+	AGOLFIE_SENSORS.back_status  ^= ((AGOLFIE_SENSORS.back_status & 1) ^ (obstacle.position.BR    << 0));
  8000972:	4b0b      	ldr	r3, [pc, #44]	; (80009a0 <refresh_obstacle+0x248>)
  8000974:	7c5b      	ldrb	r3, [r3, #17]
  8000976:	b25a      	sxtb	r2, r3
@@ -1037,9 +1038,6 @@ void refresh_obstacle(uint8_t distance_min_cm, uint8_t distance_max_cm) {
  8000992:	b2da      	uxtb	r2, r3
  8000994:	4b02      	ldr	r3, [pc, #8]	; (80009a0 <refresh_obstacle+0x248>)
  8000996:	745a      	strb	r2, [r3, #17]
-
-
-
 
 }
  8000998:	bf00      	nop
@@ -1064,6 +1062,10 @@ void proto_sm()
  80009ae:	2032      	movs	r0, #50	; 0x32
  80009b0:	f7ff fed2 	bl	8000758 <refresh_obstacle>
 
+
+	/*********  LEDS en fonctions des capteurs **********/
+	/*********       CAPTEURS AVANT            **********/
+
 	if (AGOLFIE_SENSORS.front_status & 0b0001)
  80009b4:	4b4a      	ldr	r3, [pc, #296]	; (8000ae0 <proto_sm+0x138>)
  80009b6:	7c1b      	ldrb	r3, [r3, #16]
@@ -1087,7 +1089,6 @@ void proto_sm()
 	}
 
 
-
 	if (AGOLFIE_SENSORS.front_status & 0b0010)
  80009da:	4b41      	ldr	r3, [pc, #260]	; (8000ae0 <proto_sm+0x138>)
  80009dc:	7c1b      	ldrb	r3, [r3, #16]
@@ -1109,7 +1110,6 @@ void proto_sm()
  80009f6:	483b      	ldr	r0, [pc, #236]	; (8000ae4 <proto_sm+0x13c>)
  80009f8:	f001 fade 	bl	8001fb8 <HAL_GPIO_WritePin>
 	}
-
 
 
 	if (AGOLFIE_SENSORS.front_status & 0b0100)
@@ -1157,8 +1157,8 @@ void proto_sm()
  8000a40:	f001 faba 	bl	8001fb8 <HAL_GPIO_WritePin>
 
 
-
-
+	/*********  LEDS en fonctions des capteurs **********/
+	/*********       CAPTEURS ARRIERRES        **********/
 
 	if (AGOLFIE_SENSORS.back_status & 0b0001)
  8000a44:	4b26      	ldr	r3, [pc, #152]	; (8000ae0 <proto_sm+0x138>)
@@ -1182,8 +1182,6 @@ void proto_sm()
  8000a66:	f001 faa7 	bl	8001fb8 <HAL_GPIO_WritePin>
 	}
 
-
-
 	if (AGOLFIE_SENSORS.back_status & 0b0010)
  8000a6a:	4b1d      	ldr	r3, [pc, #116]	; (8000ae0 <proto_sm+0x138>)
  8000a6c:	7c5b      	ldrb	r3, [r3, #17]
@@ -1206,8 +1204,6 @@ void proto_sm()
  8000a8c:	f001 fa94 	bl	8001fb8 <HAL_GPIO_WritePin>
 	}
 
-
-
 	if (AGOLFIE_SENSORS.back_status & 0b0100)
  8000a90:	4b13      	ldr	r3, [pc, #76]	; (8000ae0 <proto_sm+0x138>)
  8000a92:	7c5b      	ldrb	r3, [r3, #17]
@@ -1229,7 +1225,6 @@ void proto_sm()
  8000ab0:	480e      	ldr	r0, [pc, #56]	; (8000aec <proto_sm+0x144>)
  8000ab2:	f001 fa81 	bl	8001fb8 <HAL_GPIO_WritePin>
 	}
-
 
 	if (AGOLFIE_SENSORS.back_status & 0b1000)
  8000ab6:	4b0a      	ldr	r3, [pc, #40]	; (8000ae0 <proto_sm+0x138>)
@@ -2092,11 +2087,10 @@ int main(void)
  8000f8c:	f000 fa34 	bl	80013f8 <udebug>
 
 
-  //Agolfie_sensors_begin();
-  Agolfie_sensors_begin();
+   //Agolfie_sensors_begin();
+   Agolfie_sensors_begin();
  8000f90:	f7ff fb44 	bl	800061c <Agolfie_sensors_begin>
-  //Agolfie_config_sensors();
-
+   //Agolfie_config_sensors();
 
 
    HAL_Delay(100);
